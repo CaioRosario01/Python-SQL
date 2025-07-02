@@ -1,2 +1,60 @@
-# Python-SQL
-Repositório para execícios/projetos emplementando Python com SQL
+# 🔗 Conectando Python com SQL usando PyODBC e Pandas
+
+Este projeto demonstra como conectar Python a um banco de dados SQL utilizando a biblioteca `pyodbc`, fazer consultas com comandos SQL e manipular os dados com `pandas`.
+
+---
+
+## 📚 Tecnologias Utilizadas
+
+- [Python 3.x](https://www.python.org/)
+- [PyODBC](https://github.com/mkleehammer/pyodbc)
+- [Pandas](https://pandas.pydata.org/)
+- Banco de dados SQLite (com o arquivo `chinook.db`)
+
+---
+
+## 🚀 Funcionalidades
+
+- Conexão com banco de dados via `pyodbc`
+- Consulta de dados usando comandos SQL (`SELECT`)
+- Extração da estrutura das colunas
+- Criação de `DataFrame` com `pandas`
+- Filtros e manipulação dos dados
+
+---
+
+## 💻 Exemplo de uso
+
+```python
+import pyodbc
+import pandas as pd
+
+# Dados de conexão (SQLite + PyODBC)
+dados_conexao = (
+    r"Driver={SQLite3 ODBC Driver};"
+    r"Server=localhost;"
+    r"Database=chinook.db;"
+)
+
+conexao = pyodbc.connect(dados_conexao)
+cursor = conexao.cursor()
+
+# Consulta SQL
+cursor.execute("SELECT * FROM customers")
+valores = cursor.fetchall()
+descricao = cursor.description
+
+# Obter nomes das colunas
+colunas = [tupla[0] for tupla in descricao]
+
+# Criar DataFrame com pandas
+df = pd.DataFrame.from_records(valores, columns=colunas)
+
+# Exemplo de filtro com pandas
+clientes_brasileiros = df[df["Country"] == "Brazil"]
+
+print(clientes_brasileiros)
+
+# Encerrando conexão
+cursor.close()
+conexao.close()
