@@ -1,4 +1,4 @@
-# 🔗 Conectando Python com SQL usando PyODBC e Pandas
+# 👨🏾‍💻 Conectando Python com SQL usando PyODBC e Pandas
 
 Este projeto demonstra como conectar Python a um banco de dados SQL utilizando a biblioteca `pyodbc`, fazer consultas com comandos SQL e manipular os dados com `pandas`.
 
